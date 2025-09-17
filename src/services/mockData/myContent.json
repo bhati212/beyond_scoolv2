@@ -1,0 +1,153 @@
+[
+  {
+    "id": "content_101",
+    "title": "Introduction to Algebra",
+    "description": "A comprehensive quiz covering the fundamental concepts of algebra, including variables, equations, and inequalities.",
+    "subject": "Mathematics",
+    "gradeLevels": ["7th Grade", "8th Grade", "9th Grade"],
+    "visibility": "organization",
+    "createdBy": {
+      "id": "user_002",
+      "name": "Jane Doe",
+      "role": "educator"
+    },
+    "createdAt": "2025-08-15T10:30:00Z",
+    "updatedAt": "2025-08-18T11:00:00Z",
+    "tags": ["Algebra", "Math", "Beginner", "Equations"],
+    "questions": [
+      {
+        "id": "q_101_1",
+        "text": "What is the value of 'x' in the equation 2x + 5 = 15?",
+        "type": "MULTIPLE_CHOICE",
+        "options": [
+          { "id": "opt_1", "text": "5" },
+          { "id": "opt_2", "text": "10" },
+          { "id": "opt_3", "text": "7.5" },
+          { "id": "opt_4", "text": "2.5" }
+        ],
+        "correctAnswer": "opt_1",
+        "points": 10,
+        "timeLimit": 30
+      },
+      {
+        "id": "q_101_2",
+        "text": "The variable in the expression 7y - 3 is ___.",
+        "type": "FILL_IN_THE_BLANK",
+        "options": [],
+        "correctAnswer": "y",
+        "points": 5,
+        "timeLimit": 20
+      },
+      {
+        "id": "q_101_3",
+        "text": "Which of the following is an inequality?",
+        "type": "MULTIPLE_CHOICE",
+        "options": [
+          { "id": "opt_1", "text": "3a = 9" },
+          { "id": "opt_2", "text": "4b + 2 > 10" },
+          { "id": "opt_3", "text": "12 - 5 = 7" },
+          { "id": "opt_4", "text": "x + y" }
+        ],
+        "correctAnswer": "opt_2",
+        "points": 10,
+        "timeLimit": 30
+      }
+    ]
+  },
+  {
+    "id": "content_102",
+    "title": "World War II: Key Events",
+    "description": "An engaging quiz on the major events and figures of the Second World War.",
+    "subject": "History",
+    "gradeLevels": ["10th Grade", "11th Grade"],
+    "visibility": "public",
+    "createdBy": {
+      "id": "user_003",
+      "name": "John Smith",
+      "role": "educator"
+    },
+    "createdAt": "2025-09-01T14:00:00Z",
+    "updatedAt": "2025-09-01T14:00:00Z",
+    "tags": ["History", "WWII", "World History"],
+    "questions": [
+      {
+        "id": "q_102_1",
+        "text": "World War II began in which year?",
+        "type": "MULTIPLE_CHOICE",
+        "options": [
+          { "id": "opt_1", "text": "1914" },
+          { "id": "opt_2", "text": "1939" },
+          { "id": "opt_3", "text": "1941" },
+          { "id": "opt_4", "text": "1945" }
+        ],
+        "correctAnswer": "opt_2",
+        "points": 10,
+        "timeLimit": 25
+      },
+      {
+        "id": "q_102_2",
+        "text": "The D-Day landings took place in which country?",
+        "type": "FILL_IN_THE_BLANK",
+        "options": [],
+        "correctAnswer": "France",
+        "points": 10,
+        "timeLimit": 30
+      }
+    ]
+  },
+  {
+    "id": "content_103",
+    "title": "The Solar System",
+    "description": "Explore the planets, moons, and other celestial bodies in our solar system.",
+    "subject": "Science",
+    "gradeLevels": ["5th Grade", "6th Grade"],
+    "visibility": "organization",
+    "createdBy": {
+      "id": "user_002",
+      "name": "Jane Doe",
+      "role": "educator"
+    },
+    "createdAt": "2025-07-22T09:00:00Z",
+    "updatedAt": "2025-07-25T16:45:00Z",
+    "tags": ["Science", "Astronomy", "Space", "Planets"],
+    "questions": [
+      {
+        "id": "q_103_1",
+        "text": "Which planet is known as the 'Red Planet'?",
+        "type": "MULTIPLE_CHOICE",
+        "options": [
+          { "id": "opt_1", "text": "Venus" },
+          { "id": "opt_2", "text": "Jupiter" },
+          { "id": "opt_3", "text": "Mars" },
+          { "id": "opt_4", "text": "Saturn" }
+        ],
+        "correctAnswer": "opt_3",
+        "points": 10,
+        "timeLimit": 20
+      },
+      {
+        "id": "q_103_2",
+        "text": "What is the largest planet in our solar system?",
+        "type": "MULTIPLE_CHOICE",
+        "options": [
+          { "id": "opt_1", "text": "Earth" },
+          { "id": "opt_2", "text": "Jupiter" },
+          { "id": "opt_3", "text": "Uranus" },
+          { "id": "opt_4", "text": "Neptune" }
+        ],
+        "correctAnswer": "opt_2",
+        "points": 10,
+        "timeLimit": 20
+      },
+      {
+        "id": "q_103_3",
+        "text": "Earth is the ____ planet from the sun.",
+        "type": "FILL_IN_THE_BLANK",
+        "options": [],
+        "correctAnswer": "third",
+        "points": 10,
+        "timeLimit": 25
+      }
+    ]
+  }
+]
