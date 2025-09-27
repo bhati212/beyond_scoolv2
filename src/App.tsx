@@ -7,9 +7,11 @@ import ContentLibraryPage from './features/contentLibrary/ContentLibraryPage';
 import CreateContentPage from './features/contentCreation/CreateContentPage';
 import ReportDetailsPage from './features/reporting/ReportDetailsPage';
 import ProtectedRoute from './components/ProtectedRoute';
-import QuizzPage from './features/quizzes/QuizzPage';
+import Quizz from './features/quizzes/Quizz';
 import QuizTest from './features/quizzes/QuizzTest';
 import SubtopicQuizzes from './features/quizzes/SubTopicQuizz';
+import QuizLobbyPage from './features/quizzes/QuizLobbyPage';
+import { QuizPage } from './features/quizzes/QuizPage';
 
 function App() {
   return (
@@ -38,13 +40,17 @@ function App() {
             } 
           />
           <Route path="*" element={<div>404 Not Found</div>} />
-          <Route path="quizzes" element={<QuizzPage/>}/>
+          <Route path="quizzes" element={<Quizz/>}/>
           <Route path="/quizzes/:subjectId/:topicId/:subtopicId" element={<SubtopicQuizzes/>}/>
           <Route path="/quizzes/:subjectId/:topicId/:subtopicId/:quizId" element={<QuizTest/>}/>
           <Route path="library" element={<ContentLibraryPage />} />
           <Route path="create" element={<CreateContentPage />} />
           <Route path="reports/:reportId" element={<ReportDetailsPage />} />
         </Route>
+
+        <Route path="quiz/:quizId/start" element={<QuizLobbyPage/>}/>
+        <Route path="quiz/:subject/:quizName/:language" element={<QuizPage/>}/>
+        {/* <Route path="quiz/:quizId/:token/analytics" element={<QuizAnalyticsPage/>}/> */}
 
         {/* Fallback Route */}
         <Route path="*" element={<div>404 Not Found</div>} />
