@@ -108,8 +108,29 @@ import ArrowForward from '@mui/icons-material/ArrowForward';
 import { useNavigate } from 'react-router-dom';
 import subjects from '../../services/subjectsData';
 import { theme } from '../../styles/theme';
+import { useState } from 'react'
+import { QuizStartModal } from './QuizStartModal';
 
-const QuizzPage = () => {
+const Quizz = () => {
+    const [isModalOpen, setModalOpen] = useState(false);
+
+    const handleOpenModal = () => setModalOpen(true);
+    const handleCloseModal = () => setModalOpen(false);
+
+    const handlePractice = () => {
+        console.log('Starting practice mode...');
+        const subjectName ="maths";
+        const quizName = "equivalent-fractions"
+        navigate(`/quiz/${subjectName}/${quizName}/start`)
+        handleCloseModal();
+    };
+
+    const handleChallenge = () => {
+        // Here you can use the password for game logic
+        console.log('Challenging friends! Password is: examplePassword123');
+        handleCloseModal();
+    };
+
     const navigate = useNavigate();
 
     return (
@@ -149,7 +170,7 @@ const QuizzPage = () => {
                                         backgroundColor: '#a67bd4ff',
                                         color: '#fff',
                                         display: 'flex',
-                                        flexDirection:'column',
+                                        flexDirection: 'column',
                                         alignItems: 'center',
                                         justifyContent: 'center',
                                         minHeight: { xs: 80, sm: 160 },
@@ -215,7 +236,8 @@ const QuizzPage = () => {
                                                 }}
                                                 onClick={() => {
                                                     if (subtopic.quizzes.length > 0) {
-                                                        navigate(`/quizzes/${subject.id}/${topic.id}/${subtopic.id}`);
+                                                        // navigate(`/quizzes/${subject.id}/${topic.id}/${subtopic.id}`);
+                                                        setModalOpen(true);
                                                     }
                                                 }}
                                             >
@@ -267,8 +289,21 @@ const QuizzPage = () => {
                     ))}
                 </Box>
             ))}
+
+            <QuizStartModal
+                open={isModalOpen}
+                onClose={handleCloseModal}
+                title="Dividing Fractions"
+                questions={13}
+                plays="40k"
+                grades="4th to 5th"
+                difficulty="Medium"
+                password="examplePassword123" // The password data you wanted
+                onPractice={handlePractice}
+                onChallenge={handleChallenge}
+            />
         </Box>
     );
 };
 
-export default QuizzPage;
+export default Quizz;
