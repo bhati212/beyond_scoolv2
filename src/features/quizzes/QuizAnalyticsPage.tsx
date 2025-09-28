@@ -238,10 +238,15 @@ import SearchIcon from '@mui/icons-material/Search';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline'; // For Unattempted
 import type { QuizQuestion } from './quizData';
 import type { AnswerRecord } from './useQuizState';
+import { useNavigate } from 'react-router-dom';
 
 // --- (Keep AnalyticsData and QuizAnalyticsPageProps interfaces) ---
-interface AnalyticsData { /* ... */ }
-interface QuizAnalyticsPageProps { /* ... */ }
+// interface AnalyticsData { /* ... */ }
+interface QuizAnalyticsPageProps { 
+    analytics: any; // Temporarily allow `any` type
+  questions: any; // Temporarily allow `any` type
+  onPlayAgain: any; // Temporarily allow `any` type 
+  }
 
 
 // --- Animation Variants ---
@@ -261,7 +266,9 @@ interface SummaryCardProps {
   onPlayAgain: () => void;
 }
 
-const SummaryCard: React.FC<SummaryCardProps> = ({ accuracy, totalQuestions, correctAnswers, score, highestStreak, onPlayAgain }) => (
+const SummaryCard: React.FC<SummaryCardProps> = ({ accuracy, totalQuestions, correctAnswers, score, highestStreak, onPlayAgain }) => {
+  const navigate =useNavigate()
+  return (
   <Paper component={motion.div} variants={itemVariants} sx={{ p: 3, borderRadius: 4, bgcolor: 'rgba(0,0,0,0.25)', color:'white' }}>
     <Typography variant="h6" align="center" gutterBottom>Summary</Typography>
     <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, my: 2 }}>
@@ -274,17 +281,18 @@ const SummaryCard: React.FC<SummaryCardProps> = ({ accuracy, totalQuestions, cor
     </Box>
     <Grid container spacing={1} textAlign="center">
       {/* CHANGED: Replaced hardcoded "Rank" with dynamic question count */}
-      <Grid item xs={4}><Typography>Questions</Typography><Typography variant="h6">{correctAnswers}/{totalQuestions}</Typography></Grid>
-      <Grid item xs={4}><Typography>Score</Typography><Typography variant="h6">{score}</Typography></Grid>
+      <Box ><Typography>Questions</Typography><Typography variant="h6">{correctAnswers}/{totalQuestions}</Typography></Box>
+      <Box><Typography>Score</Typography><Typography variant="h6">{score}</Typography></Box>
       {/* CHANGED: Replaced hardcoded "5" with the dynamic highest streak */}
-      <Grid item xs={4}><Typography>Top Streak</Typography><Typography variant="h6"><EmojiEventsIcon sx={{ color: '#f6c41b', verticalAlign: 'middle', mb: '2px' }}/> {highestStreak}</Typography></Grid>
+      <Box><Typography>Top Streak</Typography><Typography variant="h6"><EmojiEventsIcon sx={{ color: '#f6c41b', verticalAlign: 'middle', mb: '2px' }}/> {highestStreak}</Typography></Box>
     </Grid>
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, mt: 3 }}>
         <Button variant="contained" startIcon={<ReplayIcon />} onClick={onPlayAgain} sx={{bgcolor: '#8e44ad', '&:hover': {bgcolor: '#7a3a9b'}}}>Play again</Button>
-        <Button variant="outlined" startIcon={<SearchIcon />} sx={{borderColor: '#8e44ad', color: '#8e44ad'}}>Find a new quiz</Button>
+        <Button variant="outlined" startIcon={<SearchIcon />} sx={{borderColor: '#8e44ad', color: '#8e44ad'}} onClick={()=>{navigate("/quiz")}}>Find a new quiz</Button>
     </Box>
   </Paper>
-);
+)
+};
 
 
 // ADDED: Stronger typing for props
@@ -301,11 +309,11 @@ const PerformanceStats: React.FC<PerfStatsProps> = ({ stats }) => (
     <Typography variant="h6" gutterBottom>Performance Stats</Typography>
     <Grid container spacing={2} textAlign="center">
       {stats.map((stat) => (
-        <Grid item xs={6} sm={4} key={stat.label}>
+        <Box key={stat.label}>
           <stat.icon sx={{ color: stat.color, fontSize: 30 }} />
           <Typography variant="h5">{stat.value}</Typography>
           <Typography variant="body2">{stat.label}</Typography>
-        </Grid>
+        </Box>
       ))}
     </Grid>
   </Paper>
@@ -363,7 +371,7 @@ export const QuizAnalyticsPage: React.FC<QuizAnalyticsPageProps> = ({ analytics,
   const accuracy = analytics.totalQuestions > 0 ? Math.round((analytics.correctAnswers / analytics.totalQuestions) * 100) : 0;
   const avgTimePerQuestion = analytics.totalQuestions > 0 ? (parseFloat(analytics.totalTime) / analytics.totalQuestions).toFixed(1) : '0.0';
   
-  const highestStreak = analytics.answers.reduce((acc, answer) => {
+  const highestStreak = analytics.answers.reduce((acc :any, answer :any) => {
     const currentStreak = answer.isCorrect ? (acc.current + 1) : 0;
     const maxStreak = Math.max(acc.max, currentStreak);
     return { current: currentStreak, max: maxStreak };
@@ -385,7 +393,7 @@ export const QuizAnalyticsPage: React.FC<QuizAnalyticsPageProps> = ({ analytics,
       {/* FIXED: The Grid layout is now a proper 2-column structure */}
       <Grid container spacing={3} maxWidth="lg">
         {/* Left Column */}
-        <Grid item xs={12} md={4}>
+        <Box width={"435px"}>
           <SummaryCard 
             accuracy={accuracy} 
             totalQuestions={analytics.totalQuestions}
@@ -394,15 +402,15 @@ export const QuizAnalyticsPage: React.FC<QuizAnalyticsPageProps> = ({ analytics,
             highestStreak={highestStreak}
             onPlayAgain={onPlayAgain}
           />
-        </Grid>
+        </Box>
 
         {/* Right Column */}
-        <Grid item xs={12} md={8}>
+        <Box>
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
             <PerformanceStats stats={perfStats} />
             <ReviewQuestions questions={questions} answers={analytics.answers} />
           </Box>
-        </Grid>
+        </Box>
       </Grid>
     </Box>
   );

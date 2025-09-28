@@ -23,25 +23,25 @@ export const QuizHomePage: React.FC = () => {
     const navigate = useNavigate();
 
 
-    const handleOpenModal = () => {
-        setModalOpen(true);
-    }
+    // const _handleOpenModal = () => {
+    //     setModalOpen(true);
+    // }
     const handleCloseModal = () => setModalOpen(false);
 
     const handlePractice = () => {
         console.log('Starting practice mode...');
-        const subjectName = "maths";
-        const quizName = "equivalent-fractions"
+        // const subjectName = "maths";
+        // const quizName = "equivalent-fractions"
         console.log("quiz", selectedQuiz)
         navigate(`/quiz/${selectedQuiz?.gradeId}/${selectedQuiz?.subjectId}/${selectedQuiz?.quizId}/start`)
         handleCloseModal();
     };
 
-    const handleChallenge = () => {
-        // Here you can use the password for game logic
-        console.log('Challenging friends! Password is: examplePassword123');
-        handleCloseModal();
-    };
+    // const _handleChallenge = () => {
+    //     // Here you can use the password for game logic
+    //     console.log('Challenging friends! Password is: examplePassword123');
+    //     handleCloseModal();
+    // };
 
 
     // --- Memoized Filtering Logic ---
@@ -100,7 +100,7 @@ export const QuizHomePage: React.FC = () => {
             <Box component="main" sx={{ p: { xs: 2, md: 3 }, maxWidth: '1240px', mx: 'auto' }}>
                 {/* --- Hero Section --- */}
                 <Grid container spacing={2.5} sx={{ mb: 4 }}>
-                    <Grid item xs={12} md={4}>
+                    <Box sx={{ flex: 1 }}>
                         <Paper sx={{ p: 3, bgcolor: 'primary.main', color: 'primary.contrastText', borderRadius: '16px' }}>
                             <Typography variant="h3">Play & Host live</Typography>
                             <Typography sx={{ color: '#CFE6E3', my: 1 }}>Share a 6-digit code. Players join instantly.</Typography>
@@ -108,9 +108,9 @@ export const QuizHomePage: React.FC = () => {
                                 Pick a quiz below →
                             </Button>
                         </Paper>
-                    </Grid>
+                    </Box>
                     {/* Other 2 hero cards */}
-                    <Grid item xs={12} md={4}>
+                    <Box sx={{ flex: 1 }}>
                         <Paper sx={{ p: 3, bgcolor: 'primary.main', color: 'primary.contrastText', borderRadius: '16px' }}>
                             <Typography variant="h3">Daily Deck</Typography>
                             <Typography sx={{ color: '#CFE6E3', my: 1 }}>5 questions/day tuned to your grade &amp; streak.</Typography>
@@ -118,8 +118,8 @@ export const QuizHomePage: React.FC = () => {
                                 Start
                             </Button>
                         </Paper>
-                    </Grid>
-                    <Grid item xs={12} md={4}>
+                    </Box>
+                    <Box sx={{ flex: 1 }}>
                         <Paper sx={{ p: 3, bgcolor: 'primary.main', color: 'primary.contrastText', borderRadius: '16px' }}>
                             <Typography variant="h3">Create Your Own</Typography>
                             <Typography sx={{ color: '#CFE6E3', my: 1 }}>Build a new quiz and challenge your friends.</Typography>
@@ -127,11 +127,11 @@ export const QuizHomePage: React.FC = () => {
                                 Create Quiz
                             </Button>
                         </Paper>
-                    </Grid>
+                    </Box>
                 </Grid>
 
                 {/* --- Controls --- */}
-                <Typography variant="h2">explore</Typography>
+                <Typography variant="h2">Explore</Typography>
                 <Box sx={{ display: 'flex', gap: 2, alignItems: 'center', my: 2 }}>
                     <FormControl sx={{ minWidth: 180, bgcolor: 'white' }}>
                         <InputLabel>Grade</InputLabel>
@@ -144,9 +144,12 @@ export const QuizHomePage: React.FC = () => {
                         fullWidth
                         placeholder="Search subject or title"
                         value={searchTerm}
+                        sx={{
+                            bgcolor: 'white'
+                        }}
                         onChange={(e) => setSearchTerm(e.target.value)}
                     />
-                    <FormControl sx={{ minWidth: 180 }}>
+                    <FormControl sx={{ minWidth: 180, bgcolor: 'white' }}>
                         <InputLabel>Language</InputLabel>
                         <Select value={selectedLanguage} label="Language" onChange={(e) => setSelectedLanguage(e.target.value)}>
                             <MenuItem value=""><em>Any Language</em></MenuItem>
@@ -158,7 +161,20 @@ export const QuizHomePage: React.FC = () => {
                 {/* --- Quiz Grid --- */}
                 <Grid container spacing={2.5}>
                     {filteredQuizzes.map(quiz => (
-                        <Grid item xs={12} sm={6} md={4} lg={3} key={quiz.id}>
+                        // <Grid item xs={12} sm={6} md={4} lg={3} key={quiz.id}>
+                        <Box
+                            sx={{
+                                width: '100%',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                // Responsive breakpoints for width
+                                '@media (max-width:600px)': { width: '100%' },
+                                '@media (min-width:600px)': { width: '50%' },  // equivalent to sm={6}
+                                '@media (min-width:900px)': { width: '33.33%' }, // equivalent to md={4}
+                                '@media (min-width:1200px)': { width: '25%' }, // equivalent to lg={3}
+                            }}
+                            key={quiz.id}
+                            >
                             <Card sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
                                 <CardMedia component="img" height="140" image={quiz.image} alt={quiz.title} />
                                 <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
@@ -173,7 +189,8 @@ export const QuizHomePage: React.FC = () => {
                                     </CardActions>
                                 </CardContent>
                             </Card>
-                        </Grid>
+                        {/* </Grid> */}
+                        </Box>
                     ))}
                 </Grid>
             </Box>

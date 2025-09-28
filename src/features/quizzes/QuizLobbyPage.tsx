@@ -72,11 +72,11 @@ const MainActionButton = styled(Button)(({ theme }) => ({
 }));
 
 
-interface Params {
-    gradeId: string;
-    subjectId: string;
-    quizId: string;
-}
+// interface Params {
+//     gradeId: string;
+//     subjectId: string;
+//     quizId: string;
+// }
 
 // --- The Main Page Component ---
 export const QuizLobbyPage: React.FC = () => {
@@ -251,7 +251,8 @@ export const QuizLobbyPage: React.FC = () => {
                     <Typography variant="h6" fontWeight="bold" mb={2}>Themes</Typography>
                     <Grid container spacing={1.5}>
                         {themes.map((theme) => (
-                            <Grid item xs={3} sm={2} md={1.5} key={theme.name}>
+                            // <Grid item xs={3} sm={2} md={1.5} key={theme.name}>
+                            <Box>
                                 <Box
                                     onClick={() => setSelectedTheme(theme.name)}
                                     sx={{
@@ -271,7 +272,8 @@ export const QuizLobbyPage: React.FC = () => {
                                     {theme.icon}
                                     <Typography variant="caption" sx={{ mt: 0.5, textAlign: 'center' }}>{theme.name}</Typography>
                                 </Box>
-                            </Grid>
+                                </Box>
+                            //  </Grid>
                         ))}
                     </Grid>
                 </SectionCard>

@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useQuizState } from './useQuizState';
 import { Countdown } from './Countdown';
 // import './styles.css'; // Import the CSS for animations
-import { questions } from './questions';
+// import { questions } from './questions';
 
 // Icons
 import SecurityIcon from '@mui/icons-material/Security'; // Immunity
@@ -16,15 +16,16 @@ import { useParams } from 'react-router-dom';
 
 const optionColors = ['#c4a224', '#8e44ad', '#d35400', '#16a085'];
 
-interface QuizPageProps {
-    subject: string;
-    quizName: string;
-    language: string;
-}
+// interface QuizPageProps {
+//     gradeId:string;
+//     subjectId: string;
+//     quizId: string;
+//     language: string;
+// }
 
 export const QuizPage: React.FC = () => {
     const { gradeId, subjectId, quizId, language } = useParams();
-    if(!gradeId || !subjectId || !quizId || !language){
+    if (!gradeId || !subjectId || !quizId || !language) {
         return <Typography>Error: Missing required quiz information in the URL!</Typography>;
     }
 
@@ -58,7 +59,7 @@ export const QuizPage: React.FC = () => {
 
         // Find one other incorrect option to disable
         const otherIncorrectIndex = currentQuestion.options.findIndex(
-            (opt, i) => i !== selectedOption && i !== currentQuestion.correctAnswerIndex
+            (_opt, i) => i !== selectedOption && i !== currentQuestion.correctAnswerIndex
         );
 
         return [selectedOption, otherIncorrectIndex];
@@ -166,13 +167,17 @@ export const QuizPage: React.FC = () => {
             <Box sx={{ mb: 8 }}>
                 <Grid container spacing={2} justifyContent="space-between" sx={{ width: '100%' }}>
                     {currentQuestion.options.map((option, index) => {
-                        const isSelected = selectedOption === index;
+                        // const _isSelected = selectedOption === index;
                         const isCorrect = index === currentQuestion.correctAnswerIndex;
                         const isShaking = shakingOption === index;
                         const isDisabled = disabledOptions.includes(index);
 
                         return (
-                            <Grid item xs={12} sm={6} key={index}>
+                            // <Grid item xs={12} sm={6} key={index}>
+                            <Box 
+                                flex={1}
+                                key={index}
+                            >
                                 <motion.div
                                     initial={{ scale: 0 }}
                                     animate={{ scale: 1 }}
@@ -184,7 +189,7 @@ export const QuizPage: React.FC = () => {
                                         onClick={() => !isDisabled && handleAnswerClick(index)}
                                         className={isShaking ? 'shake' : ''}
                                         sx={{
-                                            display: 'flex',
+                                            display: isDisabled ? 'none': 'flex',
                                             alignItems: 'center',
                                             justifyContent: 'center',
                                             p: 4,
@@ -211,7 +216,8 @@ export const QuizPage: React.FC = () => {
                                         <Typography variant="h5" textAlign={'center'} alignContent={'center'}>{option}</Typography>
                                     </Paper>
                                 </motion.div>
-                            </Grid>
+                            </Box>
+                            // </Grid>
                         );
                     })}
                 </Grid>

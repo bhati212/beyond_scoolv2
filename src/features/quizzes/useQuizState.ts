@@ -1,9 +1,7 @@
-// src/components/quiz/useQuizState.ts
-
 import { useState, useEffect, useCallback } from 'react';
-import { questions } from './questions';
+// import { questions } from './questions';
 
-const QUIZ_STATE_KEY = 'quizGameState';
+// const QUIZ_STATE_KEY = 'quizGameState';
 
 
 export interface QuizQuestion {
