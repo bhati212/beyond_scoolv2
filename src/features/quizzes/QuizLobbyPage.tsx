@@ -32,7 +32,7 @@ import Brightness2Icon from '@mui/icons-material/Brightness2'; // Dark Mode
 import LightModeIcon from '@mui/icons-material/LightMode'; // Light Mode
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import AppsIcon from '@mui/icons-material/Apps';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 
 // --- Data for Themes ---
@@ -68,6 +68,8 @@ const MainActionButton = styled(Button)(({ theme }) => ({
 
 // --- The Main Page Component ---
 export const QuizLobbyPage: React.FC = () => {
+
+    const {subjectName, quizName} = useParams();
   // State for settings toggles
   const [settings, setSettings] = useState({
     readAloud: false,
@@ -155,7 +157,7 @@ export const QuizLobbyPage: React.FC = () => {
 
           {/* Right Side: Action Buttons */}
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
-            <MainActionButton variant="contained" color="success" startIcon={<PlayArrowIcon />} onClick={()=> navigate(`/quiz/12/start/question`)}>
+            <MainActionButton variant="contained" color="success" startIcon={<PlayArrowIcon />} onClick={()=> navigate(`/quiz/${subjectName}/${quizName}/en/question`)}>
               Start
             </MainActionButton>
             <MainActionButton variant="contained" sx={{ bgcolor: '#8e44ad', '&:hover': { bgcolor: '#7a3a9b'}}} startIcon={<GroupIcon />}>

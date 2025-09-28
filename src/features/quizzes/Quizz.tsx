@@ -119,7 +119,9 @@ const Quizz = () => {
 
     const handlePractice = () => {
         console.log('Starting practice mode...');
-        navigate(`/quiz/${12}/start`)
+        const subjectName ="maths";
+        const quizName = "equivalent-fractions"
+        navigate(`/quiz/${subjectName}/${quizName}/start`)
         handleCloseModal();
     };
 

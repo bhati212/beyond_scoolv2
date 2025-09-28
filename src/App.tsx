@@ -48,8 +48,8 @@ function App() {
           <Route path="reports/:reportId" element={<ReportDetailsPage />} />
         </Route>
 
-        <Route path="quiz/:quizId/start" element={<QuizLobbyPage/>}/>
-        <Route path="quiz/:subject/:quizName/:language" element={<QuizPage/>}/>
+        <Route path="quiz/:subjectName/:quizName/start" element={<QuizLobbyPage/>}/>
+        <Route path="quiz/:subject/:quizName/:language/question" element={<QuizPage/>}/>
         {/* <Route path="quiz/:quizId/:token/analytics" element={<QuizAnalyticsPage/>}/> */}
 
         {/* Fallback Route */}
