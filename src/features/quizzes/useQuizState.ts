@@ -40,122 +40,15 @@ const getInitialState = (): QuizState => ({
   status: 'countdown',
 });
 
-// export const useQuizState = () => {
-
-//   const [state, setState] = useState<QuizState>(initialState);
-
-//   // Load state from local storage on initial mount
-//   useEffect(() => {
-//     try {
-//       const savedState = localStorage.getItem(QUIZ_STATE_KEY);
-//       if (savedState) {
-//         const parsedState = JSON.parse(savedState) as QuizState;
-//         // If quiz was finished, reset. Otherwise, load.
-//         if (parsedState.status === 'finished') {
-//            localStorage.removeItem(QUIZ_STATE_KEY);
-//         } else {
-//            setState(parsedState);
-//         }
-//       }
-//     } catch (error) {
-//       console.error('Failed to load quiz state from local storage', error);
-//       localStorage.removeItem(QUIZ_STATE_KEY);
-//     }
-//   }, []);
-
-//   // Save state to local storage whenever it changes
-//   useEffect(() => {
-//     if (state.status !== 'countdown') { // Don't save initial countdown state
-//         localStorage.setItem(QUIZ_STATE_KEY, JSON.stringify(state));
-//     }
-//   }, [state]);
-
-//   const startQuiz = useCallback(() => {
-//     const now = Date.now();
-//     setState(prevState => ({
-//       ...initialState,
-//       status: 'playing',
-//       quizStartTime: now,
-//       startTime: now,
-//     }));
-//   }, []);
-
-//   const answerQuestion = useCallback((selectedIndex: number) => {
-//     const currentQuestion = questions[state.currentQuestionIndex];
-//     const isCorrect = selectedIndex === currentQuestion.correctAnswerIndex;
-//     const timeTaken = Date.now() - state.startTime;
-
-//     setState(prevState => {
-//       const newStreak = isCorrect ? prevState.streak + 1 : 0;
-//       const newScore = isCorrect ? prevState.score + 10 * (1 + newStreak * 0.1) : prevState.score;
-
-//       return {
-//         ...prevState,
-//         streak: newStreak,
-//         score: Math.round(newScore),
-//         answers: [
-//           ...prevState.answers,
-//           {
-//             questionId: currentQuestion.id,
-//             selectedAnswerIndex: selectedIndex,
-//             isCorrect,
-//             timeTaken,
-//           },
-//         ],
-//       };
-//     });
-    
-//     return isCorrect;
-//   }, [state.currentQuestionIndex, state.startTime, state.answers, state.streak, state.score]);
-  
-//   const nextQuestion = useCallback(() => {
-//     const nextIndex = state.currentQuestionIndex + 1;
-//     if (nextIndex < questions.length) {
-//       setState(prevState => ({
-//         ...prevState,
-//         currentQuestionIndex: nextIndex,
-//         startTime: Date.now(), // Reset timer for the new question
-//       }));
-//     } else {
-//       // Quiz is finished
-//       setState(prevState => ({ ...prevState, status: 'finished' }));
-//     }
-//   }, [state.currentQuestionIndex]);
-  
-//   // Analytics are generated on the fly when the quiz is finished
-//   const getAnalytics = useCallback(() => {
-//       if(state.status !== 'finished') return null;
-
-//       const totalTime = state.answers.reduce((acc, ans) => acc + ans.timeTaken, 0);
-//       const correctAnswers = state.answers.filter(a => a.isCorrect).length;
-//       const incorrectAnswers = state.answers.length - correctAnswers;
-
-//       return {
-//           totalTime: (totalTime / 1000).toFixed(2), // in seconds
-//           correctAnswers,
-//           incorrectAnswers,
-//           totalQuestions: questions.length,
-//           score: state.score,
-//           answers: state.answers, // Full breakdown
-//       };
-//   },[state, questions.length]);
-
-//   const resetQuiz = useCallback(() => {
-//     localStorage.removeItem(QUIZ_STATE_KEY);
-//     setState(initialState);
-//   }, []);
-
-//   return { state, startQuiz,resetQuiz, answerQuestion, nextQuestion, getAnalytics, currentQuestion: questions[state.currentQuestionIndex] };
-// };
-
 export const useQuizState = (
-    subject: string,
-    quizName: string,
+    gradeId: string,    // ADDED for a more robust key
+    subjectId: string,  // RENAMED from 'subject'
+    quizId: string,     // RENAMED from 'quizName
     language: string,
     questions: QuizQuestion[]
 ) => {
   // MODIFIED: Dynamic local storage key
-  const QUIZ_STATE_KEY = `quizGameState-${subject}-${quizName}-${language}`;
+  const QUIZ_STATE_KEY = `quizGameState-${gradeId}-${subjectId}-${quizId}-${language}`;
 
   const [state, setState] = useState<QuizState>(getInitialState());
   const [currentQuestion, setCurrentQuestion] = useState(questions[0]);

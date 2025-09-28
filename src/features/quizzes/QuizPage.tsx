@@ -1,4 +1,3 @@
-// src/components/quiz/QuizPage.tsx
 import React, { useState, useEffect, useMemo } from 'react';
 import { Box, Typography, Grid, Paper, Tooltip, IconButton, Avatar, Chip } from '@mui/material';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -24,23 +23,22 @@ interface QuizPageProps {
 }
 
 export const QuizPage: React.FC = () => {
-    const { subject, quizName, language } = useParams();
-    if(!subject || !quizName || !language){
-        return <Typography>Error: Subject, quiz, or language is not selected!</Typography>;
+    const { gradeId, subjectId, quizId, language } = useParams();
+    if(!gradeId || !subjectId || !quizId || !language){
+        return <Typography>Error: Missing required quiz information in the URL!</Typography>;
     }
-    
-    const quizContent = useMemo(() => getQuiz(subject, quizName, language), [subject, quizName, language]);
+
+    const quizContent = useMemo(() => getQuiz(gradeId, subjectId, quizId, language), [gradeId, subjectId, quizId, language]);
     if (!quizContent) {
         return <Typography>Error: Quiz not found!</Typography>;
     }
 
-
-
     const { questions } = quizContent;
     //   const { state, startQuiz, resetQuiz, answerQuestion, nextQuestion, getAnalytics, currentQuestion } = useQuizState();
     const { state, startQuiz, answerQuestion, nextQuestion, getAnalytics, resetQuiz, currentQuestion } = useQuizState(
-        subject,
-        quizName,
+        gradeId,
+        subjectId,
+        quizId,
         language,
         questions
     );
